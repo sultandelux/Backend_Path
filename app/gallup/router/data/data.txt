@@ -1,0 +1,62 @@
+                Professions  Percentage fitting
+0   Computer Science Teacher           69.642434
+1              Cybersecurity           69.360270
+2        Stock Market Trader           68.254050
+3                  Architect           67.830257
+4                  Economist           64.871416
+5           Graphic designer           64.317397
+6        Mechanical Engineer           64.132304
+7          Financial Manager           63.845543
+8               Statistician           63.774852
+9              Brand Manager           63.258272
+10    Environmental Engineer           62.906027
+11          Career Counselor           62.348153
+12            Medical Doctor           61.757255
+13                HeadHunter           61.675977
+14        Professional Gamer           59.779900
+15         Financial Analyst           59.525677
+16                Accountant           58.502340
+17              Nutritionist           58.410586
+18                    Lawyer           57.393116
+19           Physics Teacher           57.286722
+20         Marketing Manager           57.187420
+21                Pharmacist           56.512830
+22             Fitness Coach           54.105967
+23  Restaurant Administrator           52.522401
+24       School Psychologist           51.796034
+25              Scrum Master           51.037339
+26           Project Manager           50.581475
+27           School Director           49.442898
+28             Event Planner           44.139509
+29   Human Resources Manager           43.993556
+
+Based on your Gallup strengths, here is a breakdown of why the following professions might be suitable for you: Computer Science Teacher, Cybersecurity, and Stock Market Trader.
+
+1. Computer Science Teacher:
+Your strengths of Focus, Learner, and Intellection align well with a career as a Computer Science Teacher. As a teacher, your ability to concentrate and direct your attention towards the subject matter will help you effectively convey complex concepts to your students. Your strong inclination towards learning and intellectual pursuits will enable you to continuously update your knowledge and stay ahead in the field of computer science. Additionally, your love for thinking and analyzing will aid in breaking down complex problems and presenting them in a simplified manner to your students.
+
+2. Cybersecurity:
+The strengths of Analytical, Strategic, and Futuristic make you an ideal fit for a career in Cybersecurity. Your analytical mindset allows you to dissect and understand intricate systems, identifying potential vulnerabilities and weaknesses. With your strategic thinking ability, you can devise effective plans to protect computer networks and systems from cyber threats. Furthermore, your futuristic strength enables you to anticipate emerging risks and trends in the cybersecurity landscape, ensuring you stay ahead of potential threats.
+
+3. Stock Market Trader:
+Your strengths of Analytical, Strategic, and Competition are advantageous for a career as a Stock Market Trader. Your analytical capabilities will help you analyze financial data, charts, and patterns to make informed investment decisions. Your strategic thinking will allow you to develop trading strategies and adapt to changing market conditions. Additionally, your competitive nature will drive you to excel in a highly competitive industry, where staying ahead of other traders is crucial for success.
+
+These are just a few examples of how your Gallup strengths can align with these professions. Remember, career choices are multifaceted, and your interests, values, and personal goals should also be considered when deciding on a path to pursue.
+
+
+1. Computer Science Teacher:
+Becoming a Computer Science Teacher can bring numerous benefits to your life. Firstly, it offers the opportunity to make a positive impact on the lives of students, helping them develop valuable skills and knowledge in the rapidly growing field of technology. As technology continues to advance, the demand for computer science teachers is expected to increase, providing job security and stability. Additionally, the teaching profession often comes with attractive benefits such as summers off, generous vacation time, and retirement plans.
+
+In terms of earning potential, salaries for computer science teachers can vary depending on factors such as location and experience. According to the Bureau of Labor Statistics, the median annual wage for high school teachers in the United States was $61,660 in May 2020. However, with advanced degrees, certifications, and experience, it's possible to earn significantly higher salaries, especially in areas with high demand for computer science teachers.
+
+2. Cybersecurity:
+Choosing a career in cybersecurity can bring several advantages to your life. Firstly, it offers the opportunity to work in a field that is in high demand, as organizations increasingly prioritize protecting their digital assets. This demand translates into a wide range of job opportunities and career growth potential. Additionally, the field of cybersecurity is ever-evolving, ensuring that you'll constantly be learning and facing new challenges, which can contribute to job satisfaction.
+
+In terms of earning potential, cybersecurity professionals are often well-compensated due to the critical nature of their work. The salaries in this field can vary depending on factors such as experience, certifications, and job role. For example, a cybersecurity analyst in the United States can earn a median annual wage of around $102,470, according to the Bureau of Labor Statistics.
+
+3. Stock Market Trader:
+Choosing a career as a Stock Market Trader can offer several advantages, including the potential for high earnings. Successful traders can generate significant profits by effectively analyzing market trends and making intelligent investment decisions. However, it's important to note that trading in the stock market also involves risks, and making consistent profits requires a deep understanding of the market, constant monitoring, and disciplined decision-making.
+
+The earning potential in stock market trading can vary greatly depending on various factors, including trading strategies, capital invested, market conditions, and individual skills. Some professional traders have achieved great success and amassed substantial wealth through their trading activities. However, it's worth noting that trading is a highly competitive field, and success is not guaranteed for everyone.
+
+It's important to remember that while these professions offer potential for high earnings, success and financial rewards are not guaranteed. Additional factors like personal effort, dedication, and market conditions will also play a significant role.
