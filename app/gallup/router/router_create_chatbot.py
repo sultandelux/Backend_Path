@@ -5,9 +5,9 @@ from typing import Any
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Pinecone
-from langchain.document_loaders import TextLoader
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
+from langchain.document_loaders import DirectoryLoader
 import pinecone
 import logging
 from app.auth.adapters.jwt_service import JWTData
@@ -26,14 +26,12 @@ def get_pdf_similarity(
 ) -> Any:
     PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
     PINECONE_ENV = os.getenv("PINECONE_ENV")
-    txt_filename = f"{pdf_id}_comments.txt"
-    loader = TextLoader(f"{txt_filename}")
-    documents = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-    docs = text_splitter.split_documents(documents)
-    #logging.info(docs[0])
-    embeddings = OpenAIEmbeddings()
     pdf_data = svc.repository.get_pdf_url(pdf_id=pdf_id, user_id=jwt_data.user_id)
+    #logging.info(docs[0])
+    MBTI_str = pdf_data.get("MBTI")
+    MIT_str = pdf_data.get("MIT")
+    best_themes = pdf_data.get("best_themes")
+    embeddings = OpenAIEmbeddings()
     pdf_tokens = pdf_data.get("tokens_used")
     history = pdf_data.get("chat_hsitory")
 
@@ -44,6 +42,10 @@ def get_pdf_similarity(
     index_name = "langchain"
 
     if pdf_tokens == 0:
+        loader = DirectoryLoader("txt_files")
+        documents = loader.load()
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        docs = text_splitter.split_documents(documents)
         index = pinecone.Index(index_name) 
         index.delete(deleteAll=True)
         #pinecone.create_index(index_name, dimension=1536, metric="cosine")
@@ -57,7 +59,9 @@ def get_pdf_similarity(
             index_name=index_name,
         )
 
-    elif 0 < pdf_tokens <= 2000:
+        os.remove(f"txt_files/{pdf_id}_comments.txt")
+
+    elif 0 < pdf_tokens <= 20000:
         docsearch = Pinecone.from_existing_index(index_name, embeddings)
 
     else:
@@ -71,7 +75,7 @@ def get_pdf_similarity(
         chain_type="stuff",
         retriever=docsearch.as_retriever(),
     )
-    user_input = bot_question
+    user_input = bot_question + f"(just remember that my top 15 gallup themes: {best_themes} ,MBTI {MBTI_str} and MIT: {MIT_str})"
 
     #history_str = ','.join(history)
 
@@ -81,7 +85,7 @@ def get_pdf_similarity(
     if user_input == "0":
         history = ""
     else:
-        history += f"user: {user_input} \n bot: {answer}"
+        history += f"\n user: {user_input}  \n bot: {answer}"
         
     logging.info(history)
     pdf_tokens += len(user_input) + len(answer)
