@@ -43,6 +43,17 @@ def get_pdf_similarities(
     return pdf_url
 
 
+@router.get("/{pdf_id:str}/pdf_similarities_download_new")
+def get_pdf_similarities(
+    pdf_id: str,
+    jwt_data: JWTData = Depends(parse_jwt_user_data),
+    svc: Service = Depends(get_service),
+) -> str:
+    pdf_url = svc.repository.get_pdf_url(pdf_id=pdf_id, user_id=jwt_data.user_id)
+    pdf_url = pdf_url.get("pdf_similarities_new")
+    return pdf_url
+
+
 @router.get("/{pdf_id:str}/pdf_comments_download")
 def get_pdf_similarities(
     pdf_id: str,

@@ -155,6 +155,95 @@ def get_pdf_similarity(
     )
 
 
+@router.get("/{pdf_id:str}/pdf_similarity_new")
+def get_pdf_similarity_new(
+    pdf_id: str,
+    jwt_data: JWTData = Depends(parse_jwt_user_data),
+    svc: Service = Depends(get_service),
+) -> Any:
+    pdf_url = svc.repository.get_pdf_url(pdf_id=pdf_id, user_id=jwt_data.user_id)
+    if pdf_url.get("pdf_similarities_new"):
+        table_data = pd.read_csv(pdf_url.get("pdf_similarities_new")).to_dict(orient="records")
+        return table_data
+    pdf_url = pdf_url.get("url")
+    df = pd.read_csv(
+        "https://galluppublic.s3.eu-north-1.amazonaws.com/posts/Atlas+of+new+professions+-+text.csv"
+    )
+    df = df.drop(columns=["IsGood MIT", "IsGood 34"])
+    df = df.reindex(sorted(df.columns), axis=1)
+    Nurs_df = pd.read_csv(pdf_url)
+
+    x = np.arange(1, 35)
+    y = []
+    for i in range(34):
+        y.append(1 / (1 + np.exp(-(17 - x[i]) / np.pi)))
+
+    x_2 = np.arange(1, 18)
+    y_2 = []
+    for i in range(17):
+        y_2.append(1 / (1 + np.exp(-(17 / 2 - x_2[i]) / (np.pi / 2))))
+
+    z = np.arange(1, 35)
+    error = []
+    for i in range(17):
+        error.append(abs(z[i] - z[-(i + 1)]) * y_2[i])
+    Max_error = sum(error) * 2
+    logging.info(Max_error)
+
+    professions = []
+    for j in range(len(df.iloc[:, 0])):
+        Total_num = 0
+        for i in range(33):
+            if df.iloc[j, i]:
+                Total_num += (
+                    abs(df.iloc[j, i] - Nurs_df.iloc[0, i]) * y[df.iloc[j, i] - 1]
+                )
+
+        professions.append(round((Max_error - Total_num) * 100 / (Max_error * 0.95), 2))
+
+    list_pro = []
+    for pro in df["Профессия"]:
+        list_pro.append(pro)
+
+    list_field = []
+    for pro in df['Сфера']:
+        list_field.append(pro)
+
+    list_year = []
+    for pro in df["Год появления "]:
+        list_year.append(pro)
+    
+    list_numb = list(range(1, (len(list_pro)) + 1))
+
+    Full_list = pd.DataFrame({
+     'Field': list_field,
+     'Year of appearance': list_year,
+     'Professions': list_pro,
+     'Percentage fitting': professions
+     
+    })
+    Full_list = Full_list.sort_values(by='Percentage fitting', ascending=False)
+    Full_list.insert(0, 'Place', list_numb) 
+    csv_buffer = BytesIO()
+    Full_list.to_csv(csv_buffer, index=False)
+    csv_buffer.seek(0)
+    csv_filename = f"{pdf_id}_similaties_new.csv"
+    url = svc.s3_service.upload_file(csv_buffer, csv_filename)
+    url = url.replace(" ", "+")
+    table_data = pd.read_csv(url).to_dict(orient="records")
+    if Full_list is None:
+        raise HTTPException(status_code=500, detail=f"File {csv_filename} not uploaded")
+
+    update_result = svc.repository.update_pdf_by_id(
+        pdf_id=pdf_id, user_id=jwt_data.user_id, data={"pdf_similarities_new": url}
+    )
+    if update_result.acknowledged:
+        return table_data
+    raise HTTPException(
+        status_code=404, detail=f"Error occured while updating shanyrak {pdf_id}"
+    )
+
+
 @router.get("/{pdf_id:str}/pdf_comments")
 def get_pdf_comments(
     pdf_id: str,
