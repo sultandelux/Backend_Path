@@ -167,7 +167,7 @@ def get_pdf_similarity_new(
         return table_data
     pdf_url = pdf_url.get("url")
     df = pd.read_csv(
-        "https://galluppublic.s3.eu-north-1.amazonaws.com/posts/Atlas+of+new+professions+-+text.csv"
+        "https://galluppublic.s3.eu-north-1.amazonaws.com/posts/Atlas+of+new+professions-test2.csv"
     )
     df = df.drop(columns=["IsGood MIT", "IsGood 34"])
     df = df.reindex(sorted(df.columns), axis=1)
@@ -200,6 +200,7 @@ def get_pdf_similarity_new(
                 )
 
         professions.append(round((Max_error - Total_num) * 100 / (Max_error * 0.95), 2))
+    logging.info(professions)
 
     list_pro = []
     for pro in df["Профессия"]:
@@ -212,13 +213,18 @@ def get_pdf_similarity_new(
     list_year = []
     for pro in df["Год появления "]:
         list_year.append(pro)
+
+    list_links = []
+    for pro in df["Ссылка"]:
+        list_links.append(pro)
     
     list_numb = list(range(1, (len(list_pro)) + 1))
 
     Full_list = pd.DataFrame({
      'Field': list_field,
-     'Year of appearance': list_year,
      'Professions': list_pro,
+     'Year of appearance': list_year,
+     'Description link': list_links,
      'Percentage fitting': professions
      
     })

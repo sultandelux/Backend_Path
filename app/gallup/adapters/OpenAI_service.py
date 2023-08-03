@@ -28,7 +28,7 @@ class OpenAIService:
             ]
         )
 
-        llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0)
+        llm = ChatOpenAI(model_name="gpt-4", temperature=0)
         memory = ConversationBufferMemory(return_messages=True)
         conversation = ConversationChain(memory=memory, prompt=prompt, llm=llm)
 
