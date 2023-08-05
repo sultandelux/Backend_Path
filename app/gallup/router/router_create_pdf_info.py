@@ -16,7 +16,7 @@ import PyPDF2
 import re
 import os
 from io import BytesIO
-
+from collections import Counter
 from typing import Any, List
 from fastapi import Depends, HTTPException, UploadFile
 
@@ -78,7 +78,7 @@ def get_pdf_similarity(
         return table_data
     pdf_url = pdf_url.get("url")
     df = pd.read_csv(
-        "https://galluppublic.s3.eu-north-1.amazonaws.com/posts/Professions+v1.0+-+test.csv"
+        "https://galluppublic.s3.eu-north-1.amazonaws.com/posts/Professions%2Bv1.0%2B-%2Btest.csv"
     )
     df = df.drop(columns=["IsGood MIT", "IsGood 34"])
     df = df.reindex(sorted(df.columns), axis=1)
@@ -280,12 +280,16 @@ def get_pdf_comments(
         pdf_id=pdf_id, user_id=jwt_data.user_id, data={"best_themes": str_result}
     )
     pdf_sim_url = pdf_url.get("pdf_similarities")
-    df_prof = pd.read_csv(pdf_sim_url)
-    df_prof = df_prof.iloc[0:5, 2].tolist()
+    df_prof_fit = pd.read_csv(pdf_sim_url)
+    df_prof = df_prof_fit.iloc[0:5, 3].tolist()
+    df_fields = df_prof_fit.iloc[0:50, 1].tolist()
+    df_fields = Counter(df_fields)
+    logging.info(df_fields.most_common(3))
+    str_fields = ", ".join(str(x) for x in df_fields.most_common(3))
     srt_prof = ", ".join(str(x) for x in df_prof)
     MBTI_str = pdf_url.get("MBTI")
     MIT_str = pdf_url.get("MIT")
-    personality, career_fields, profession = svc.OpenAI_service.professions_list(str_result, srt_prof, MBTI_str, MIT_str)
+    personality, career_fields, profession = svc.OpenAI_service.professions_list(str_result, srt_prof, str_fields, MBTI_str, MIT_str)
     combined_str = "REPORT 1: EXPLORE YOUR PERSONALITY\n" + personality + "\n\n REPORT 2: BEST CAREER FIELDS" + career_fields + "\n\n REPORT 3: TOP 5 PROFESSIONS" + profession
     txt_filename = f"txt_files/{pdf_id}_comments.txt"
     with open(txt_filename, "w") as text_file:

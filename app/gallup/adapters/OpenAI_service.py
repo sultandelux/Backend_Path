@@ -15,7 +15,7 @@ from langchain.llms import OpenAI
 
 
 class OpenAIService:
-    def professions_list(self, galluptext, top3prof, MBTI_str, MIT):
+    def professions_list(self, galluptext, top5prof, top3fields, MBTI_str, MIT):
         openai_api_key = os.getenv("OPENAI_API_KEY")
         llm = OpenAI(openai_api_key=openai_api_key)
         prompt = ChatPromptTemplate.from_messages(
@@ -35,6 +35,6 @@ class OpenAIService:
         text1 = conversation.predict(
             input=f"Here is my gallup strengths in order from 1st to 15 th: {galluptext}, MBTI: {MBTI_str}, Multiple Intelligences Test result: {MIT} consider only resutls higher than 60%. Now I want you to fully describe me as a person taking into consideration all the provided information above including clifton strength34, MBTI, please don't describe all my personal test results, I just need comprahensive analysis of my personality based on them, minimal length of it should be 600 words, at the end should be conclusion"
         )
-        text2 = re.sub(r'^.*?\n', '\n', conversation.predict(input=f"continue to say about which top 3 potential career field paths may be considered, minimum length of report should be 400 words, at the beggining it should have small introduction, bold names of the Fields"))
-        text3 = re.sub(r'^.*?\n', '\n', conversation.predict(input=f"Based on my gallup strengths and Multiple Intelligences Test results analyse my top 5 selected professions {top3prof}, minimum length of report should be 400 words, at the beggining it should have small introduction, bold names of the professions"))
+        text2 = re.sub(r'^.*?\n', '\n', conversation.predict(input=f"Based on information you provided analyse my top 3 career pathways: {top3fields} and describe these fields, minimum length of report should be 400 words, at the beggining it should have small introduction, bold names of the professions"))
+        text3 = re.sub(r'^.*?\n', '\n', conversation.predict(input=f"I'm 15 years old, based on my gallup strengths and Multiple Intelligences Test results analyse my top 5 selected professions {top5prof}, minimum length of report should be 400 words, at the beggining it should have small introduction, bold names of the professions"))
         return text1, text2, text3
