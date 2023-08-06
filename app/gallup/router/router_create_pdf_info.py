@@ -286,7 +286,7 @@ def get_pdf_comments(
     )
     pdf_sim_url = pdf_url.get("pdf_similarities")
     df_prof_fit = pd.read_csv(pdf_sim_url)
-    df_prof = df_prof_fit.iloc[0:5, 3].tolist()
+    df_prof = df_prof_fit.iloc[0:5, 4].tolist()
     df_fields = df_prof_fit.iloc[0:50, 1].tolist()
     df_fields = Counter(df_fields)
     logging.info(df_fields.most_common(3))

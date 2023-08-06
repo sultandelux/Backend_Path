@@ -82,7 +82,7 @@ def get_pdf_similarity(
     result = chain({"question": user_input, "chat_history": history}, return_only_outputs=True)
     answer = result["answer"]
 
-    if user_input == "0":
+    if user_input == "zero" + f"(just remember that my top 15 gallup themes: {best_themes} ,MBTI {MBTI_str} and MIT: {MIT_str})":
         history = ""
     else:
         history += f"\n user: {user_input}  \n bot: {answer}"
