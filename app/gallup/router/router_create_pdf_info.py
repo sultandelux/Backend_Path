@@ -124,12 +124,17 @@ def get_pdf_similarity(
     for pro in df["Сфера деятельности"]:
         list_sub_field.append(pro)
     
+    list_links = []
+    for pro in df["Ссылки"]:
+        list_links.append(pro)
+
     list_numb = list(range(1, (len(list_pro)) + 1))
 
     Full_list = pd.DataFrame({
      'Field': list_field,
      'Subfield': list_sub_field,
      'Professions': list_pro,
+     'Links': list_links,
      'Percentage fitting': professions
      
     })
